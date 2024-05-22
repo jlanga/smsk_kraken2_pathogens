@@ -1,0 +1,5 @@
+# Configuration file with information about the reference
+---
+urls:
+    tarball: >
+        https://bitbucket.org/snakemake/snakemake/downloads/snakemake-tutorial-data.tar.gz
