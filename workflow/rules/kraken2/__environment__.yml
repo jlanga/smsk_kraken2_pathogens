@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - gzip =1.13
+  - kraken2 =2.1.3
+  - krakentools =1.2
+  - parallel =20240122
+  - pigz =2.8
+  - rsync =3.2.7
+  - samtools =1.20

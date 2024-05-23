@@ -1,3 +1,19 @@
-# Configuration file with the execution parameters
+# Execution parameters
 ---
-max_threads: 12
+
+preprocess:
+  fastp:
+    length_required: 75  # nonpareil requires at least 25bp
+  bowtie2:  # mem_gb >= mem_host + threads * samtools_mem
+    samtools_mem: 1G
+
+quantify:
+  bowtie2:
+    samtools_mem: 1G
+  coverm:   # https://github.com/wwood/CoverM#calculation-methods
+    genome:
+      methods: ["count", "covered_bases", "length"]
+      min_covered_fraction: 0.0
+      separator: "@"
+    contig:
+      methods: ["count", "covered_bases", "length"]
