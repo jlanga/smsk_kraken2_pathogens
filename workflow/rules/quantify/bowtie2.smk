@@ -1,8 +1,14 @@
 rule quantify__bowtie2__:
     """Map one library to reference genome using bowtie2"""
     input:
-        forward_=K2_EXTRACT / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}_1.fq.gz",
-        reverse_=K2_EXTRACT / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}_2.fq.gz",
+        forward_=K2_EXTRACT
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}_1.fq.gz",
+        reverse_=K2_EXTRACT
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}_2.fq.gz",
         mock=multiext(
             str(QUANT_INDEX) + "/{pathogen}",
             ".1.bt2l",
@@ -16,7 +22,10 @@ rule quantify__bowtie2__:
         fai=REFERENCE / "pathogens" / "{pathogen}.fa.gz.fai",
         gzi=REFERENCE / "pathogens" / "{pathogen}.fa.gz.gzi",
     output:
-        cram=QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.cram",
+        cram=QUANT_BOWTIE2
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}.cram",
     log:
         QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.log",
     conda:

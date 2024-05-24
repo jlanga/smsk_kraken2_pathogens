@@ -1,7 +1,7 @@
 # Snakemake workflow: `mg_quant`
 
 [![Snakemake](https://img.shields.io/badge/snakemake-≥8.0.0-brightgreen.svg)](https://snakemake.github.io)
-[![GitHub actions status](https://github.com/3d-omics/mg_quant/workflows/Tests/badge.svg)](https://github.com/3d-omics/mg_quant/actions)
+[![GitHub actions status](https://github.com/jlanga/smsk_kraken2_pathogens/workflows/Tests/badge.svg)](https://github.com/jlanga/smsk_kraken2_pathogens/actions)
 
 
 A Snakemake workflow for assessing detection limit from laser-microdissected samples.
@@ -16,7 +16,7 @@ A Snakemake workflow for assessing detection limit from laser-microdissected sam
 Clone the repository, and set it as the working directory.
 
 ```
-git clone --recursive https://github.com/3d-omics/mg_quant.git
+git clone --recursive https://github.com/jlanga/smsk_kraken2_pathogens
 cd detection_limit_test
 ```
 
@@ -40,26 +40,26 @@ snakemake \
       references:  # Reads will be mapped sequentially
          human: resources/reference/human_22_sub.fa.gz
          chicken: resources/reference/chicken_39_sub.fa.gz
-
-      mag_catalogues:
-         mag1: resources/reference/mags_sub.fa.gz
-         # mag2: resources/reference/mags_sub.fa.gz
+      pathogens:
+         gonorrhea:
+            fasta: resources/reference/gonorrhea.fa.gz
+            taxid: 485
+         syphilis:
+            fasta: resources/reference/syphilis.fa.gz
+            taxid: 545776
 
       databases:
          kraken2:
             mock1: resources/databases/kraken2/kraken2_RefSeqV205_Complete_500GB
-            # refseq500: resources/databases/kraken2/kraken2_RefSeqV205_Complete_500GB
-         singlem: resources/databases/singlem/S3.2.1.GTDB_r214.metapackage_20231006.smpkg.zb
       ```
 
-   3. `config/params.yml`: parameters for every program. The defaults are reasonable.
+   1. `config/params.yml`: parameters for every program. The defaults are reasonable.
 
 
 4. Run the pipeline and go for a walk:
 
 ```
-./run  # locally
-./run_slurm  # in a cluster environment with slurm
+snakemake --use-conda -j 8
 ```
 
 ## Rulegraph
@@ -69,13 +69,13 @@ snakemake \
 ## Brief description
 
 1. Trim reads and remove adaptors with `fastp`
-2. Map to human, chicken / pig, mag catalogue:
+2. Map to host(s):
    1. Map to the reference with `bowtie2`
    2. Extract the reads that have one of both ends unmapped with `samtools`
    3. Map those unmapped reads to the next reference
-3. Generate MAG-based statistics with  `coverm`
-4. Generate MAG-independent statistics with `singlem` and `nonpareil`
-5. Assign taxonomically reads with `kraken2`
+3. Classify reads with `kraken2`
+4. Extract pathogenic reads
+5. Map extracted reads to genome
 6. Generate lots of reports in the `reports/` folder
 
 
@@ -85,8 +85,6 @@ snakemake \
 - [bowtie2](https://bowtie-bio.sourceforge.net/bowtie2/manual.shtml)
 - [samtools](https://www.htslib.org/)
 - [coverm](https://github.com/wwood/CoverM)
-- [singlem](https://github.com/wwood/singlem)
-- [nonpareil](http://enve-omics.ce.gatech.edu/nonpareil/)
 - [fastqc](https://github.com/s-andrews/FastQC)
 - [multiqc](https://multiqc.info/)
 - [kraken2](https://github.com/DerrickWood/kraken2)

@@ -1,18 +1,28 @@
 rule quantify__coverm__genome__:
     """Run coverm genome for one library and one mag catalogue"""
     input:
-        cram=QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.cram",
-        crai=QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.cram.crai",
+        cram=QUANT_BOWTIE2
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}.cram",
+        crai=QUANT_BOWTIE2
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}.cram.crai",
         reference=REFERENCE / "pathogens" / "{pathogen}.fa.gz",
         fai=REFERENCE / "pathogens" / "{pathogen}.fa.gz.fai",
     output:
         tsv=touch(
-            COVERM / "{kraken2_db}" / "{pathogen}/genome/{method}/{sample_id}.{library_id}.tsv"
+            COVERM
+            / "{kraken2_db}"
+            / "{pathogen}/genome/{method}/{sample_id}.{library_id}.tsv"
         ),
     conda:
         "__environment__.yml"
     log:
-        COVERM / "{kraken2_db}" / "{pathogen}/genome/{method}/{sample_id}.{library_id}.log",
+        COVERM
+        / "{kraken2_db}"
+        / "{pathogen}/genome/{method}/{sample_id}.{library_id}.log",
     params:
         method="{method}",
         min_covered_fraction=params["quantify"]["coverm"]["genome"][
@@ -70,16 +80,26 @@ rule quantify__coverm__genome:
 rule quantify__coverm__contig__:
     """Run coverm contig for one library and one mag catalogue"""
     input:
-        cram=QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.cram",
-        crai=QUANT_BOWTIE2 / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.cram.crai",
+        cram=QUANT_BOWTIE2
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}.cram",
+        crai=QUANT_BOWTIE2
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}.cram.crai",
         reference=REFERENCE / "pathogens" / "{pathogen}.fa.gz",
         fai=REFERENCE / "pathogens" / "{pathogen}.fa.gz.fai",
     output:
-        tsv=COVERM / "{kraken2_db}" / "{pathogen}/contig/{method}/{sample_id}.{library_id}.tsv",
+        tsv=COVERM
+        / "{kraken2_db}"
+        / "{pathogen}/contig/{method}/{sample_id}.{library_id}.tsv",
     conda:
         "__environment__.yml"
     log:
-        COVERM / "{kraken2_db}" / "{pathogen}/contig/{method}/{sample_id}.{library_id}.log",
+        COVERM
+        / "{kraken2_db}"
+        / "{pathogen}/contig/{method}/{sample_id}.{library_id}.log",
     params:
         method="{method}",
     shell:

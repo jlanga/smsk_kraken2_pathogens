@@ -7,11 +7,11 @@ rule kraken2__classify__:
     """
     input:
         forwards=[
-            K2_READS / f"{sample}.{library}_1.fq.gz" 
+            K2_READS / f"{sample}.{library}_1.fq.gz"
             for sample, library in SAMPLE_LIBRARY
         ],
         rerverses=[
-            K2_READS / f"{sample}.{library}_2.fq.gz" 
+            K2_READS / f"{sample}.{library}_2.fq.gz"
             for sample, library in SAMPLE_LIBRARY
         ],
         database=get_kraken2_database,

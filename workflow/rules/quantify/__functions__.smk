@@ -4,7 +4,12 @@ def get_coverm_file(wildcards, coverm_type):
     method = wildcards.method
     kraken2_db = wildcards.kraken2_db
     return [
-        COVERM / kraken2_db / pathogen / coverm_type / method / f"{sample_id}.{library_id}.tsv"
+        COVERM
+        / kraken2_db
+        / pathogen
+        / coverm_type
+        / method
+        / f"{sample_id}.{library_id}.tsv"
         for sample_id, library_id in SAMPLE_LIBRARY
     ]
 

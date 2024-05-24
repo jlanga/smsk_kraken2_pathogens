@@ -5,8 +5,14 @@ rule kraken2__extract__:
         report=K2_CLASSIFY / "{kraken2_db}" / "{sample_id}.{library_id}.report",
         out=K2_CLASSIFY / "{kraken2_db}" / "{sample_id}.{library_id}.out.gz",
     output:
-        forward_=K2_EXTRACT / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}_1.fq.gz",
-        reverse_=K2_EXTRACT / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}_2.fq.gz",
+        forward_=K2_EXTRACT
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}_1.fq.gz",
+        reverse_=K2_EXTRACT
+        / "{kraken2_db}"
+        / "{pathogen}"
+        / "{sample_id}.{library_id}_2.fq.gz",
     log:
         K2_EXTRACT / "{kraken2_db}" / "{pathogen}" / "{sample_id}.{library_id}.log",
     conda:
@@ -32,9 +38,12 @@ rule kraken2__extract__:
 rule kraken2__extract:
     input:
         [
-            K2_EXTRACT / kraken2_db / pathogen / f"{sample_id}.{library_id}_{end}.fq.gz"
+            K2_EXTRACT
+            / kraken2_db
+            / pathogen
+            / f"{sample_id}.{library_id}_{end}.fq.gz"
             for kraken2_db in KRAKEN2_DBS
             for pathogen in PATHOGENS
             for sample_id, library_id in SAMPLE_LIBRARY
             for end in [1, 2]
-        ]
+        ],

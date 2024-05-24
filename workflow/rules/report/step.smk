@@ -99,12 +99,14 @@ rule report__step__kraken2:
         """
 
 
-
 rule report__step__quantify:
     """Collect all reports for the bowtie2 step when mapping to a mag catalogue"""
     input:
         reports=[
-            QUANT_BOWTIE2 / kraken2_db /  pathogen / f"{sample_id}.{library_id}.{report}"
+            QUANT_BOWTIE2
+            / kraken2_db
+            / pathogen
+            / f"{sample_id}.{library_id}.{report}"
             for pathogen in PATHOGENS
             for sample_id, library_id in SAMPLE_LIBRARY
             for report in ["stats.tsv", "flagstats.txt"]
