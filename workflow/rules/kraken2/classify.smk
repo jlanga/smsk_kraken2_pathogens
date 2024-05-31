@@ -67,6 +67,8 @@ rule kraken2__classify__:
                     --db /dev/shm/{params.kraken_db_name} \
                     --threads {threads} \
                     --gzip-compressed \
+                    --report-minimizer-data \
+                    --minimum-hit-groups 3 \
                     --paired \
                     --output >(pigz --processes {threads} > $output) \
                     --report $report \
