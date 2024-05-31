@@ -55,6 +55,6 @@ rule all:
     input:
         # rules.reads.input,
         # rules.reference.input,
-        rules.kraken2.input,
-        # rules.quantify.input,
-        # rules.report.input,
+        # rules.kraken2.input,
+        rules.quantify.input,
+        rules.report.input,

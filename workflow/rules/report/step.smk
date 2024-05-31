@@ -72,7 +72,7 @@ rule report__step__kraken2:
     """Collect all reports for the kraken2 step"""
     input:
         kraken2=[
-            K2 / kraken2_db / f"{sample_id}.{library_id}.report"
+            K2_CLASSIFY / kraken2_db / f"{sample_id}.{library_id}.report"
             for sample_id, library_id in SAMPLE_LIBRARY
             for kraken2_db in KRAKEN2_DBS
         ],
@@ -140,4 +140,5 @@ rule report__step:
     input:
         rules.report__step__reads.output,
         rules.report__step__preprocess.output,
+        rules.report__step__kraken2.output,
         rules.report__step__quantify.output,
