@@ -44,13 +44,6 @@ include: "rules/quantify/__main__.smk"
 include: "rules/report/__main__.smk"
 
 
-rule cache:
-    """Rule to retrieve files from the cache or to execute them"""
-    input:
-        rules.reference__recompress.input,
-        rules.preprocess__index.input,
-
-
 rule all:
     input:
         # rules.reads.input,
@@ -58,3 +51,10 @@ rule all:
         # rules.kraken2.input,
         rules.quantify.input,
         rules.report.input,
+
+
+rule cache:
+    """Rule to retrieve files from the cache or to execute them"""
+    input:
+        rules.reference__recompress.input,
+        rules.preprocess__index.input,
