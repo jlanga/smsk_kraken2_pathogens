@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/jlanga/smsk_kraken2_pathogens/compare/v1.0.0...v1.0.1) (2024-06-04)
+
+
+### Bug Fixes
+
+* put cache after all ([87bad89](https://github.com/jlanga/smsk_kraken2_pathogens/commit/87bad89d6abba713cddb8264a84b5d7af4d97401))
+
 ## 1.0.0 (2024-05-31)
 
 
